@@ -75,20 +75,16 @@ fn main() {
         let num = line.trim().parse::<BigInt>().expect("Failed to parse BigInt from file");
     
         let color = if num.clone() % &BigInt::from(2) == BigInt::zero() {
+            even += 1;
             Color::White
         } else {
+            odd += 1;
             Color::Yellow
         };
 
         if num > max_value {
             max_value = num.clone();
             max_index = line_num + 1; // Increment max_index to account for input_value
-        }
-
-        if num.clone() % &BigInt::from(2) == BigInt::zero() {
-            even += 1;
-        } else {
-            odd += 1;
         }
 
         stopping_time = line_num +1 ; // Increment stopping_time to account for input_value
