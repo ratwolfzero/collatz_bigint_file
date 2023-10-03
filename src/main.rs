@@ -1,13 +1,9 @@
-use std::io;
-use colored::Colorize;
-use colored::Color;
-use num_bigint::BigInt;
-use num_traits::{Zero, One};
+use std::io; use std::fs::File; use std::path::PathBuf; use std::io::{BufWriter, Write, BufRead};
+use colored::Colorize; use colored::Color;
+use num_bigint::BigInt; use num_traits::{Zero, One};
 use regex::Regex;
-use std::fs::File;
-use std::io::{BufWriter, Write, BufRead};
-use std::path::PathBuf; // Import PathBuf for working with file paths
 
+// Import PathBuf for working with file paths
 fn collatz(mut n: BigInt, output_file: &mut BufWriter<File>) {
     while n != BigInt::one() {
         if n.clone() % &BigInt::from(2) == BigInt::zero() {
@@ -49,13 +45,10 @@ fn main() {
     println!();
 
     let output_file_path = PathBuf::from("/Users/ralf/Projects/Rust//output_files/collatz_sequence.txt");
-
     let output_file = File::create(&output_file_path).expect("Failed to create output file");
 
-    let mut max_value = BigInt::zero();
-    let mut max_index = 0;
-    let mut even = 0;
-    let mut odd = 0;
+    let mut max_value = BigInt::zero();let mut max_index = 0;
+    let mut even = 0;let mut odd = 0;
     let mut stopping_time = 0;
     
     // Open the file in append mode
@@ -90,7 +83,6 @@ fn main() {
         stopping_time = line_num +1 ; // Increment stopping_time to account for input_value
 
         let formatted_num=num.to_string().color(color);
-        
         print!("{} ", formatted_num);
     }   
 
