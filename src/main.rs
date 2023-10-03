@@ -93,4 +93,5 @@ fn main() {
     println!("even: {}", even);
     println!("odd: {}", odd);
     println!();
+    println!();
 }
