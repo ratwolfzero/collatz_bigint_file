@@ -46,12 +46,7 @@ fn main() {
         }
     };
 
-   
-
     println!();
-
-    
-    //let output_file = File::create("collatz_sequence.txt").expect("Failed to create output file");
 
     let output_file_path = PathBuf::from("/Users/ralf/Projects/Rust//output_files/collatz_sequence.txt");
 
