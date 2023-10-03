@@ -7,14 +7,13 @@ use regex::Regex;
 fn collatz(mut n: BigInt, output_file: &mut BufWriter<File>) {
     while n != BigInt::one() {
         if n.clone() % &BigInt::from(2) == BigInt::zero() {
-            n /= &BigInt::from(2);
+            n /= &BigInt::from(2)
         } else {
-            n = &BigInt::from(3) * n.clone() + BigInt::one();
+            n = &BigInt::from(3) * n.clone() + BigInt::one()
         }
-        writeln!(output_file, "{}", n).expect("Failed to write to file");
+        writeln!(output_file, "{}", n).expect("Failed to write to file")
     }
 }
-
 fn main() {
     println!("Enter an integer as start value for the Collatz sequence (e.g., 27 or 2^199-1 or 2^199):");
     println!();
@@ -38,12 +37,11 @@ fn main() {
             _ => {
                 println!("Invalid input. Please enter a valid positive integer > 0");
                 return;
+                }
             }
-        }
-    };
+        };
 
     println!();
-
     let output_file_path = PathBuf::from("/Users/ralf/Projects/Rust//output_files/collatz_sequence.txt");
     let output_file = File::create(&output_file_path).expect("Failed to create output file");
 
@@ -85,7 +83,6 @@ fn main() {
         let formatted_num=num.to_string().color(color);
         print!("{} ", formatted_num);
     }   
-
     println!();
     println!();
     println!("stopping time: {}", stopping_time);
