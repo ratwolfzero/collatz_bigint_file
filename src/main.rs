@@ -109,5 +109,3 @@ fn main() {
     println!("odd: {}", odd);
     println!();
 }
-
-
