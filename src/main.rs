@@ -6,6 +6,7 @@ use num_traits::{Zero, One};
 use regex::Regex;
 use std::fs::File;
 use std::io::{BufWriter, Write, BufRead};
+use std::path::PathBuf; // Import PathBuf for working with file paths
 
 fn collatz(mut n: BigInt, output_file: &mut BufWriter<File>) {
     while n != BigInt::one() {
@@ -47,7 +48,12 @@ fn main() {
 
     println!();
 
-    let output_file = File::create("collatz_sequence.txt").expect("Failed to create output file");
+    
+    //let output_file = File::create("collatz_sequence.txt").expect("Failed to create output file");
+
+    let output_file_path = PathBuf::from("/Users/ralf/Projects/Rust/collatz_sequence.txt");
+
+    let output_file = File::create(&output_file_path).expect("Failed to create output file");
 
     let mut max_value = BigInt::zero();
     let mut max_index = 0;
@@ -64,7 +70,7 @@ fn main() {
     drop(output_file);
 
     // Reopen the file for reading
-    let file = File::open("collatz_sequence.txt").expect("Failed to open file for reading");
+    let file = File::open(&output_file_path).expect("Failed to open file for reading");
     let reader = std::io::BufReader::new(file);
 
     for (line_num, line) in reader.lines().enumerate() {
