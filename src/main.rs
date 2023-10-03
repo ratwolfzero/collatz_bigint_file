@@ -20,7 +20,7 @@ fn collatz(mut n: BigInt, output_file: &mut BufWriter<File>) {
 }
 
 fn main() {
-    println!("Enter an integer for the Collatz sequence (e.g., 27 or 2^199-1 or 2^199):");
+    println!("Enter an integer as start value for the Collatz sequence (e.g., 27 or 2^199-1 or 2^199):");
     println!();
 
     let mut input_value = String::new();
@@ -46,12 +46,14 @@ fn main() {
         }
     };
 
+   
+
     println!();
 
     
     //let output_file = File::create("collatz_sequence.txt").expect("Failed to create output file");
 
-    let output_file_path = PathBuf::from("/Users/ralf/Projects/Rust/collatz_sequence.txt");
+    let output_file_path = PathBuf::from("/Users/ralf/Projects/Rust//output_files/collatz_sequence.txt");
 
     let output_file = File::create(&output_file_path).expect("Failed to create output file");
 
