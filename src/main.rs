@@ -48,7 +48,7 @@ fn main() {
         "Enter an integer as start value for the Collatz sequence (e.g., 27 or 2^199-1 or 2^199):"
     );
     println!();
-    
+
     let mut input_value = String::new();
     io::stdin()
         .read_line(&mut input_value)
