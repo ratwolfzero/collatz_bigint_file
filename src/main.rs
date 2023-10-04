@@ -103,7 +103,7 @@ fn main() {
 
             stopping_time = line_num + 1; // Increment stopping_time to account for input_value
 
-            let formatted_num = num.to_string().color(color)
+            let formatted_num = num.to_string().color(color);
             print!("{} ", formatted_num);
         }
         println!();
