@@ -103,7 +103,7 @@ fn main() {
 
             stopping_time = line_num + 1; // Increment stopping_time to account for input_value
 
-            let formatted_num = num.to_string().color(color);
+            let formatted_num = num.to_string().color(color)
             print!("{} ", formatted_num);
         }
         println!();
@@ -116,7 +116,7 @@ fn main() {
         println!("even: {}", even);
         println!("odd: {}", odd);
         println!();
-        println!();
+        println!()
     } else {
         println!("Invalid input. Please enter a valid positive integer or a valid expression like '2^199-1'.");
     }
