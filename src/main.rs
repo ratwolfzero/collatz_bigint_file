@@ -116,6 +116,7 @@ fn main() {
         println!("even: {}", even);
         println!("odd: {}", odd);
         println!();
+        println!();
     } else {
         println!("Invalid input. Please enter a valid positive integer or a valid expression like '2^199-1'.");
     }
