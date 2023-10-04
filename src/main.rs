@@ -80,7 +80,6 @@ fn line_read(
 }
 
 fn main() {
-    
     let mut max_value = BigInt::zero();
     let mut max_index = 0;
     let mut even = 0;
