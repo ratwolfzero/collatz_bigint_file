@@ -43,7 +43,50 @@ fn collatz(mut n: BigInt, output_file: &mut BufWriter<File>) {
     }
 }
 
+// Function to read the file line by line, calculate statistics, formatting and printing of output
+fn line_read(
+    reader: io::BufReader<File>,
+    even: &mut i32,
+    odd: &mut i32,
+    max_value: &mut BigInt,
+    max_index: &mut usize,
+    stopping_time: &mut usize,
+) {
+    for (line_num, line) in reader.lines().enumerate() {
+        let line = line.expect("Failed to read line");
+        let num = line
+            .trim()
+            .parse::<BigInt>()
+            .expect("Failed to parse BigInt from file");
+
+        let color = if num.clone() % &BigInt::from(2) == BigInt::zero() {
+            *even += 1;
+            Color::White
+        } else {
+            *odd += 1;
+            Color::Yellow
+        };
+
+        if num > *max_value {
+            *max_value = num.clone();
+            *max_index = line_num + 1; // Increment max_index to account for input_value
+        }
+
+        *stopping_time = line_num + 1; // Increment stopping_time to account for input_value
+
+        let formatted_num = num.to_string().color(color);
+        print!("{} ", formatted_num);
+    }
+}
+
 fn main() {
+    
+    let mut max_value = BigInt::zero();
+    let mut max_index = 0;
+    let mut even = 0;
+    let mut odd = 0;
+    let mut stopping_time = 0;
+
     println!(
         "Enter an integer as start value for the Collatz sequence (e.g., 27 or 2^199-1 or 2^199):"
     );
@@ -74,38 +117,15 @@ fn main() {
         // Reopen the file for reading
         let file = File::open(&output_file_path).expect("Failed to open file for reading");
         let reader = std::io::BufReader::new(file);
+        line_read(
+            reader,
+            &mut even,
+            &mut odd,
+            &mut max_value,
+            &mut max_index,
+            &mut stopping_time,
+        );
 
-        let mut max_value = BigInt::zero();
-        let mut max_index = 0;
-        let mut even = 0;
-        let mut odd = 0;
-        let mut stopping_time = 0;
-
-        for (line_num, line) in reader.lines().enumerate() {
-            let line = line.expect("Failed to read line");
-            let num = line
-                .trim()
-                .parse::<BigInt>()
-                .expect("Failed to parse BigInt from file");
-
-            let color = if num.clone() % &BigInt::from(2) == BigInt::zero() {
-                even += 1;
-                Color::White
-            } else {
-                odd += 1;
-                Color::Yellow
-            };
-
-            if num > max_value {
-                max_value = num.clone();
-                max_index = line_num + 1; // Increment max_index to account for input_value
-            }
-
-            stopping_time = line_num + 1; // Increment stopping_time to account for input_value
-
-            let formatted_num = num.to_string().color(color);
-            print!("{} ", formatted_num);
-        }
         println!();
         println!();
         println!("stopping time: {}", stopping_time);
