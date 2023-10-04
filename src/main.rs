@@ -49,7 +49,7 @@ fn main() {
     );
     println!();
 
-    let mut input_value = String::new();
+    let mut input_value = String::default(); // String::new() replaced with String::default()
     io::stdin()
         .read_line(&mut input_value)
         .expect("Failed to read line");
