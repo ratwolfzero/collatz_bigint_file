@@ -31,7 +31,7 @@ fn parse_input(input_value: String) -> Option<BigInt> {
     }
 }
 
-// Function to calculate the Collatz sequence
+// Function to calculate the Collatz sequence and write sequence to file
 fn collatz(mut n: BigInt, output_file: &mut BufWriter<File>) {
     while n != BigInt::one() {
         if n.clone() % &BigInt::from(2) == BigInt::zero() {
@@ -86,6 +86,7 @@ fn main() {
     let mut odd = 0;
     let mut stopping_time = 0;
 
+    //read start value for collatz sequence
     println!(
         "Enter an integer as start value for the Collatz sequence (e.g., 27 or 2^199-1 or 2^199):"
     );
@@ -96,6 +97,7 @@ fn main() {
         .read_line(&mut input_value)
         .expect("Failed to read line");
 
+    //call Function to parse the input value
     if let Some(parsed_input) = parse_input(input_value) {
         // Continue with the parsed input
         println!("Parsed input: {:?}", parsed_input);
@@ -108,6 +110,7 @@ fn main() {
         // Open the file in append mode
         let mut output_file = BufWriter::new(output_file);
 
+        //call collatz function
         collatz(parsed_input.clone(), &mut output_file);
 
         // Close the output_file to release the write lock
@@ -124,7 +127,7 @@ fn main() {
             &mut max_index,
             &mut stopping_time,
         );
-
+        //print statistics
         println!();
         println!();
         println!("stopping time: {}", stopping_time);
