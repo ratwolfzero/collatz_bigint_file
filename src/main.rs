@@ -8,6 +8,30 @@ use std::io;
 use std::io::{BufRead, BufWriter, Write};
 use std::path::PathBuf;
 
+//function to intialize variables
+fn init_var() -> (BigInt, usize, i32, i32, usize) {
+    let max_value = BigInt::zero();
+    let max_index = 0;
+    let even = 0;
+    let odd = 0;
+    let stopping_time = 0;
+    (max_value, max_index, even, odd, stopping_time)
+}
+
+//function to read start value for collatz sequence
+fn read_input() -> String {
+    println!(
+        "Enter an integer as start value for the Collatz sequence (e.g., 27 or 2^199-1 or 2^199):"
+    );
+    println!();
+
+    let mut input_value = String::default();
+    io::stdin()
+        .read_line(&mut input_value)
+        .expect("Failed to read line");
+    input_value
+}
+
 // Function to parse the input value
 fn parse_input(input_value: String) -> Option<BigInt> {
     // Use regex to match expressions like "2^199-1" or "2^199"
@@ -29,6 +53,14 @@ fn parse_input(input_value: String) -> Option<BigInt> {
             _ => None,
         }
     }
+}
+
+//function to define path for output file
+fn def_output() -> (PathBuf, File) {
+    let output_file_path =
+        PathBuf::from("/Users/ralf/Projects/Rust/output_files/collatz_sequence.txt");
+    let output_file = File::create(&output_file_path).expect("Failed to create output file");
+    (output_file_path, output_file)
 }
 
 // Function to calculate the Collatz sequence and write sequence to file
@@ -78,37 +110,6 @@ fn line_read(
         print!("{} ", formatted_num);
     }
 }
-
-//function to intialize variables
-fn init_var() -> (BigInt, usize, i32, i32, usize) {
-    let max_value = BigInt::zero();
-    let max_index = 0;
-    let even = 0;
-    let odd = 0;
-    let stopping_time = 0;
-    (max_value, max_index, even, odd, stopping_time)
-}
-//function to read start value for collatz sequence
-fn read_input() -> String {
-    println!(
-        "Enter an integer as start value for the Collatz sequence (e.g., 27 or 2^199-1 or 2^199):"
-    );
-    println!();
-
-    let mut input_value = String::default();
-    io::stdin()
-        .read_line(&mut input_value)
-        .expect("Failed to read line");
-    input_value
-}
-
-//function to define path for output file
-fn def_output() -> (PathBuf, File) {
-    let output_file_path =
-        PathBuf::from("/Users/ralf/Projects/Rust/output_files/collatz_sequence.txt");
-    let output_file = File::create(&output_file_path).expect("Failed to create output file");
-    (output_file_path, output_file)
-}
 fn main() {
     //call function to inizialize variables
     let (mut max_value, mut max_index, mut even, mut odd, mut stopping_time) = init_var();
@@ -136,6 +137,8 @@ fn main() {
         // Reopen the file for reading
         let file = File::open(output_file_path).expect("Failed to open file for reading");
         let reader = std::io::BufReader::new(file);
+
+        //call the function to read the file line by line, calculate statistics, formatting and printing of output
         line_read(
             reader,
             &mut even,
