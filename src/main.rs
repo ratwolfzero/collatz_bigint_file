@@ -100,8 +100,6 @@ fn main() {
 
     //call Function to parse the input value
     if let Some(parsed_input) = parse_input(input_value) {
-        
-        // Continue with the parsed input
         println!("Parsed input: {}", parsed_input);
         println!();
 
