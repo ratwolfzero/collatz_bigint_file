@@ -156,8 +156,8 @@ fn main() {
         println!("max value: {}", max_value);
         println!();
         println!("max pos: {}", max_index);
-        println!("even: {}", even);
-        println!("odd: {}", odd);
+        println!("even (white): {}", even);
+        println!("odd (yellow): {}", odd);
         println!();
         println!()
     } else {
