@@ -153,7 +153,6 @@ fn main() {
         println!("even (white): {}", even);
         println!("odd (yellow): {}", odd);
         println!();
-        println!();
         println!()
     } else {
         println!("Invalid input. Please enter a valid positive integer or a valid expression like '2^199-1'.");
