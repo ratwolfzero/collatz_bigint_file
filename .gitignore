@@ -1,5 +1,0 @@
-/target
-.DS_Store
-Cargo.lock
-.gitignore
-.vscode
