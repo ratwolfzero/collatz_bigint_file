@@ -102,8 +102,11 @@ fn line_read(
 }
 fn main() {
     //inizialize variables
-    let mut max_value=BigInt::zero();
-    let mut max_index=0; let mut even=0; let mut odd=0; let mut stopping_time=0;
+    let mut max_value = BigInt::zero();
+    let mut max_index = 0;
+    let mut even = 0;
+    let mut odd = 0;
+    let mut stopping_time = 0;
 
     //call function to read the start value of the collatz sequence
     let input_value = read_input();
