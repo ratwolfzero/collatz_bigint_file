@@ -8,16 +8,6 @@ use std::io;
 use std::io::{BufRead, BufWriter, Write};
 use std::path::PathBuf;
 
-fn init_var() -> (BigInt, usize, i32, i32, usize) { //simplyfy init_var and avoid --> let max_value = BigInt::zero(); etc.
-    (
-        BigInt::zero(),
-        0,
-        0,
-        0,
-        0,
-    )
-}
-
 //function to read start value for collatz sequence
 fn read_input() -> String {
     println!(
@@ -111,8 +101,9 @@ fn line_read(
     }
 }
 fn main() {
-    //call function to inizialize variables
-    let (mut max_value, mut max_index, mut even, mut odd, mut stopping_time) = init_var();
+    //inizialize variables
+    let mut max_value=BigInt::zero();
+    let mut max_index=0; let mut even=0; let mut odd=0; let mut stopping_time=0;
 
     //call function to read the start value of the collatz sequence
     let input_value = read_input();
