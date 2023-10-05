@@ -79,34 +79,50 @@ fn line_read(
     }
 }
 
-fn main() {
-    //intialize variables
-    let mut max_value = BigInt::zero();
-    let mut max_index = 0;
-    let mut even = 0;
-    let mut odd = 0;
-    let mut stopping_time = 0;
-
-    //read start value for collatz sequence
+//function to intialize variables
+fn init_var() -> (BigInt, usize, i32, i32, usize) {
+    let max_value = BigInt::zero();
+    let max_index = 0;
+    let even = 0;
+    let odd = 0;
+    let stopping_time = 0;
+    (max_value, max_index, even, odd, stopping_time)
+}
+//function to read start value for collatz sequence
+fn read_input() -> String {
     println!(
         "Enter an integer as start value for the Collatz sequence (e.g., 27 or 2^199-1 or 2^199):"
     );
     println!();
 
-    let mut input_value = String::default(); // String::new() replaced with String::default()
+    let mut input_value = String::default();
     io::stdin()
         .read_line(&mut input_value)
         .expect("Failed to read line");
+    input_value
+}
 
-    //call Function to parse the input value
+//function to define path for output file
+fn def_output() -> (PathBuf, File) {
+    let output_file_path =
+        PathBuf::from("/Users/ralf/Projects/Rust/output_files/collatz_sequence.txt");
+    let output_file = File::create(&output_file_path).expect("Failed to create output file");
+    (output_file_path, output_file)
+}
+fn main() {
+    //call function to inizialize variables
+    let (mut max_value, mut max_index, mut even, mut odd, mut stopping_time) = init_var();
+
+    //call function to read the start value of the collatz sequence
+    let input_value = read_input();
+
+    //call function to parse the input value
     if let Some(parsed_input) = parse_input(input_value) {
         println!("Parsed input: {}", parsed_input);
         println!();
 
-        //define path for output file
-        let output_file_path =
-            PathBuf::from("/Users/ralf/Projects/Rust/output_files/collatz_sequence.txt");
-        let output_file = File::create(&output_file_path).expect("Failed to create output file");
+        // call function to define the path for the output file
+        let (output_file_path, output_file) = def_output();
 
         // Open the file in append mode
         let mut output_file = BufWriter::new(output_file);
@@ -118,7 +134,7 @@ fn main() {
         drop(output_file);
 
         // Reopen the file for reading
-        let file = File::open(&output_file_path).expect("Failed to open file for reading");
+        let file = File::open(output_file_path).expect("Failed to open file for reading");
         let reader = std::io::BufReader::new(file);
         line_read(
             reader,
@@ -128,6 +144,7 @@ fn main() {
             &mut max_index,
             &mut stopping_time,
         );
+
         //print statistics
         println!();
         println!();
