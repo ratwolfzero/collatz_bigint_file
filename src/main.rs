@@ -80,6 +80,7 @@ fn line_read(
 }
 
 fn main() {
+    //intialize variables
     let mut max_value = BigInt::zero();
     let mut max_index = 0;
     let mut even = 0;
@@ -99,10 +100,12 @@ fn main() {
 
     //call Function to parse the input value
     if let Some(parsed_input) = parse_input(input_value) {
+        
         // Continue with the parsed input
         println!("Parsed input: {}", parsed_input);
         println!();
 
+        //define path for output file
         let output_file_path =
             PathBuf::from("/Users/ralf/Projects/Rust/output_files/collatz_sequence.txt");
         let output_file = File::create(&output_file_path).expect("Failed to create output file");
