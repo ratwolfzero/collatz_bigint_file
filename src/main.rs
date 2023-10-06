@@ -65,7 +65,7 @@ fn collatz(mut n: BigInt, output_file: &mut BufWriter<File>) {
     }
 }
 
-// Function to read the file line by line, calculate statistics, formatting and printing of output
+// Function to read the file line by line, calculate statistics, format and print sequence
 fn line_read(
     reader: io::BufReader<File>,
     even: &mut i32,
@@ -132,7 +132,7 @@ fn main() {
         let file = File::open(output_file_path).expect("Failed to open file for reading");
         let reader = std::io::BufReader::new(file);
 
-        //call the function to read the file line by line, calculate statistics, formatting and printing of output
+        //call the function to read the file line by line, calculate statistics, format and print sequence
         line_read(
             reader,
             &mut even,
