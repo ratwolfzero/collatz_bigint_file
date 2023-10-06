@@ -42,7 +42,7 @@ fn parse_input(input_value: String) -> Option<BigInt> {
             Ok(value) if value > BigInt::zero() => Some(value),
             _ => None,
         }
-    }
+    }  
 }
 
 //function to define path for output file
@@ -111,7 +111,7 @@ fn main() {
     //call function to read the start value of the collatz sequence
     let input_value = read_input();
 
-    //call function to parse the input value
+    //call function to parse the input value and print the parsed value
     if let Some(parsed_input) = parse_input(input_value) {
         println!("Parsed input: {}", parsed_input);
         println!();
