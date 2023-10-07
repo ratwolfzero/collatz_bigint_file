@@ -41,8 +41,8 @@ fn parse_input(input_value: String) -> Option<BigInt> {
             Some(BigInt::from(base).pow(exponent) - BigInt::from(subtract))
         }
         None => match input_value.trim().parse::<BigInt>() {
-            Ok(value) if value > BigInt::zero() => Some(value),  // Return parsed BigInt if valid
-            _ => None,  // Return None for invalid input
+            Ok(value) if value > BigInt::zero() => Some(value), // Return parsed BigInt if valid
+            _ => None,                                          // Return None for invalid input
         },
     }
 }
@@ -54,6 +54,7 @@ fn def_output() -> (PathBuf, File) {
     let output_file = File::create(&output_file_path).expect("Failed to create output file");
     (output_file_path, output_file)
 }
+
 //function to calculate the collatz sequence and write it to file
 fn collatz(mut n: BigInt, output_file: &mut BufWriter<File>) {
     while n != BigInt::one() {
@@ -67,12 +68,12 @@ fn collatz(mut n: BigInt, output_file: &mut BufWriter<File>) {
 
 // Function to read the file line by line, calculate statistics, format and print sequence
 fn line_read(
-    reader: io::BufReader<File>,       // Input: Buffered file reader
-    even: &mut i32,                    // Output: Count of even numbers
-    odd: &mut i32,                     // Output: Count of odd numbers
-    max_value: &mut BigInt,            // Output: Maximum value encountered
-    max_index: &mut usize,             // Output: Line number where maximum value was encountered
-    stopping_time: &mut usize,         // Output: Total lines processed (stopping time)
+    reader: io::BufReader<File>, // Input: Buffered file reader
+    even: &mut i32,              // Output: Count of even numbers
+    odd: &mut i32,               // Output: Count of odd numbers
+    max_value: &mut BigInt,      // Output: Maximum value encountered
+    max_index: &mut usize,       // Output: Line number where maximum value was encountered
+    stopping_time: &mut usize,   // Output: Total lines processed (stopping time)
 ) {
     println!();
     for (line_num, line) in reader.lines().enumerate() {
