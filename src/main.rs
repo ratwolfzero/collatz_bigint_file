@@ -73,7 +73,7 @@ fn line_read(
     max_value: &mut BigInt,
     max_index: &mut usize,
     stopping_time: &mut usize,
-) {
+) { println!();
     for (line_num, line) in reader.lines().enumerate() {
         let line = line.expect("Failed to read line");
         let num = line
@@ -111,11 +111,9 @@ fn main() {
     //call function to read the start value of the collatz sequence
     let input_value = read_input();
 
-    //call function to parse the input value and print the parsed value
+    //call function to parse the input value
     if let Some(parsed_input) = parse_input(input_value) {
-        println!("Parsed input: {}", parsed_input);
-        println!();
-
+        
         // call function to define the path for the output file
         let (output_file_path, output_file) = def_output();
 
@@ -134,6 +132,7 @@ fn main() {
 
         //call the function to read the file line by line, calculate statistics, format and print sequence
         line_read(
+
             reader,
             &mut even,
             &mut odd,
@@ -141,14 +140,15 @@ fn main() {
             &mut max_index,
             &mut stopping_time,
         );
-
-        //print statistics
+        
         println!();
+        println!();
+
+        //print parsed input value and statistics
+        println!("Parsed input: {}", parsed_input);
         println!();
         println!("stopping time: {}", stopping_time);
-        println!();
         println!("max value: {}", max_value);
-        println!();
         println!("max pos: {}", max_index);
         println!("even (white): {}", even);
         println!("odd (yellow): {}", odd);
