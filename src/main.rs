@@ -113,7 +113,7 @@ fn main() {
     let input_value = read_input();
 
     //call function to parse the input value
-    if let Some(parsed_input) = parse_input(input_value) {
+    if let Some(parsed_input) = parse_input(input_value.clone()) {
         
         // call function to define the path for the output file
         let (output_file_path, output_file) = def_output();
@@ -145,15 +145,16 @@ fn main() {
         println!();
 
         //print parsed input value and statistics
+        print!("Input: {}", input_value);
         println!("Parsed input: {}", parsed_input);
         println!();
         println!("stopping time: {}", stopping_time);
-        println!("max value: {}", max_value);
-        println!("max pos: {}", max_index);
         println!("even (white): {}", even);
         println!("odd (yellow): {}", odd);
-        println!();
+        println!("max pos: {}", max_index);
+        println!("max value: {}", max_value);
         println!()
+        
     } else {
         println!("Invalid input. Please enter a valid positive integer or a valid expression like '2^199-1'.");
     }
