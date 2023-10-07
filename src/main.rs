@@ -42,7 +42,7 @@ fn parse_input(input_value: String) -> Option<BigInt> {
             Ok(value) if value > BigInt::zero() => Some(value),
             _ => None,
         }
-    }  
+    }
 }
 
 //function to define path for output file
@@ -73,7 +73,8 @@ fn line_read(
     max_value: &mut BigInt,
     max_index: &mut usize,
     stopping_time: &mut usize,
-) { println!();
+) {
+    println!();
     for (line_num, line) in reader.lines().enumerate() {
         let line = line.expect("Failed to read line");
         let num = line
@@ -132,7 +133,6 @@ fn main() {
 
         //call the function to read the file line by line, calculate statistics, format and print sequence
         line_read(
-
             reader,
             &mut even,
             &mut odd,
@@ -140,7 +140,7 @@ fn main() {
             &mut max_index,
             &mut stopping_time,
         );
-        
+
         println!();
         println!();
 
