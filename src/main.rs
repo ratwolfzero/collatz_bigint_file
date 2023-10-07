@@ -144,7 +144,7 @@ fn main() {
         println!();
         println!();
 
-        //print parsed input value and statistics
+        //print print input value, parsed input value and statistics
         print!("Input: {}", input_value);
         println!("Parsed input: {}", parsed_input);
         println!();
