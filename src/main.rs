@@ -56,10 +56,10 @@ fn def_output() -> (PathBuf, File) {
 // Function to calculate the Collatz sequence and write sequence to file
 fn collatz(mut n: BigInt, output_file: &mut BufWriter<File>) {
     while n != BigInt::one() {
-        if n.clone() % &BigInt::from(2) == BigInt::zero() {
-            n /= &BigInt::from(2)
+        if n.clone() % BigInt::from(2) == BigInt::zero() {
+            n /= BigInt::from(2)
         } else {
-            n = &BigInt::from(3) * n.clone() + BigInt::one()
+            n = BigInt::from(3) * n + BigInt::one()
         }
         writeln!(output_file, "{}", n).expect("Failed to write to file")
     }
