@@ -26,22 +26,23 @@ fn read_input() -> String {
 fn parse_input(input_value: String) -> Option<BigInt> {
     // Use regex to match expressions like "2^199-1" or "2^199"
     let re = Regex::new(r"(\d+)\^(\d+)(?:-(\d+))?").unwrap();
-    if let Some(captures) = re.captures(&input_value) {
-        let base = captures[1].parse::<u32>().unwrap();
-        let exponent = captures[2].parse::<u32>().unwrap();
-        let subtract = captures
-            .get(3)
-            .map(|m| m.as_str())
-            .unwrap_or("0")
-            .parse::<u32>()
-            .unwrap();
+    match re.captures(&input_value) {
+        Some(captures) => {
+            let base = captures[1].parse::<u32>().unwrap();
+            let exponent = captures[2].parse::<u32>().unwrap();
+            let subtract = captures
+                .get(3)
+                .map(|m| m.as_str())
+                .unwrap_or("0")
+                .parse::<u32>()
+                .unwrap();
 
-        Some(BigInt::from(base).pow(exponent) - BigInt::from(subtract))
-    } else {
-        match input_value.trim().parse::<BigInt>() {
+            Some(BigInt::from(base).pow(exponent) - BigInt::from(subtract))
+        }
+        None => match input_value.trim().parse::<BigInt>() {
             Ok(value) if value > BigInt::zero() => Some(value),
             _ => None,
-        }
+        },
     }
 }
 
@@ -53,15 +54,13 @@ fn def_output() -> (PathBuf, File) {
     (output_file_path, output_file)
 }
 
-// Function to calculate the Collatz sequence and write sequence to file
 fn collatz(mut n: BigInt, output_file: &mut BufWriter<File>) {
     while n != BigInt::one() {
-        if n.clone() % BigInt::from(2) == BigInt::zero() {
-            n /= BigInt::from(2)
-        } else {
-            n = BigInt::from(3) * n + BigInt::one()
+        match n.clone() % BigInt::from(2) {
+            x if x == BigInt::zero() => n /= BigInt::from(2),
+            _ => n = BigInt::from(3) * n + BigInt::one(),
         }
-        writeln!(output_file, "{}", n).expect("Failed to write to file")
+        writeln!(output_file, "{}", n).expect("Failed to write to file");
     }
 }
 
@@ -82,12 +81,15 @@ fn line_read(
             .parse::<BigInt>()
             .expect("Failed to parse BigInt from file");
 
-        let color = if num.clone() % &BigInt::from(2) == BigInt::zero() {
-            *even += 1;
-            Color::White
-        } else {
-            *odd += 1;
-            Color::Yellow
+        let color = match num.clone() % &BigInt::from(2) {
+            x if x == BigInt::zero() => {
+                *even += 1;
+                Color::White
+            }
+            _ => {
+                *odd += 1;
+                Color::Yellow
+            }
         };
 
         if num > *max_value {
@@ -114,7 +116,6 @@ fn main() {
 
     //call function to parse the input value
     if let Some(parsed_input) = parse_input(input_value.clone()) {
-        
         // call function to define the path for the output file
         let (output_file_path, output_file) = def_output();
 
@@ -143,7 +144,6 @@ fn main() {
 
         println!();
         println!();
-
         //print print input value, parsed input value and statistics
         print!("Input: {}", input_value);
         println!("Parsed input: {}", parsed_input);
@@ -154,7 +154,6 @@ fn main() {
         println!("max pos: {}", max_index);
         println!("max value: {}", max_value);
         println!()
-        
     } else {
         println!("Invalid input. Please enter a valid positive integer or a valid expression like '2^199-1'.");
     }
