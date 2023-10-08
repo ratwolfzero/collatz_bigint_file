@@ -150,6 +150,7 @@ fn main() {
         print!("Input: {}", input_value);
         println!("Parsed input: {}", parsed_input);
         println!();
+        //print statistics
         println!("stopping time: {}", stopping_time);
         println!("even (white): {}", even);
         println!("odd (yellow): {}", odd);
