@@ -50,7 +50,7 @@ fn parse_input(input_value: String) -> Option<BigInt> {
 //function to define path for output file
 fn def_output() -> (PathBuf, File) {
     let output_file_path =
-        PathBuf::from("/Users/ralf/Projects/Rust/output_files/collatz_sequence.txt");
+        PathBuf::from("/Users/ralf/Projects/output_files/collatz_sequence.txt");
     let output_file = File::create(&output_file_path).expect("Failed to create output file");
     (output_file_path, output_file)
 }
