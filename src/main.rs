@@ -8,6 +8,9 @@ use std::io;
 use std::io::{BufRead, BufWriter, Write};
 use std::path::PathBuf;
 
+//output_file_path
+const OUTPUT_FILE_PATH: &str = "/Users/ralf/Projects/output_files/collatz_sequence.txt";
+
 //function to read start value for collatz sequence
 fn read_input() -> String {
     println!(
@@ -49,7 +52,7 @@ fn parse_input(input_value: String) -> Option<BigInt> {
 
 //function to define path for output file
 fn def_output() -> (PathBuf, File) {
-    let output_file_path = PathBuf::from("/Users/ralf/Projects/output_files/collatz_sequence.txt");
+    let output_file_path = PathBuf::from(OUTPUT_FILE_PATH);
     let output_file = File::create(&output_file_path).expect("Failed to create output file");
     (output_file_path, output_file)
 }
