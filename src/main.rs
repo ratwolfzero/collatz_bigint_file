@@ -59,7 +59,7 @@ fn collatz(mut n: BigInt, output_file: &mut BufWriter<File>) {
     while n != BigInt::one() {
         match n.clone() % BigInt::from(2) {
             x if x == BigInt::zero() => n /= BigInt::from(2),
-            _ => n = BigInt::from(3) * n + BigInt::one(),
+            _ => n = BigInt::from(3) * n + BigInt::one()
         }
         writeln!(output_file, "{}", n).expect("Failed to write to file");
     }
