@@ -1,12 +1,12 @@
-use colored::Color;
+use colored::Color; // Import the 'colored' crate for text coloring in the terminal
 use colored::Colorize;
-use num_bigint::BigInt;
-use num_traits::{One, Zero};
-use regex::Regex;
-use std::fs::File;
+use num_bigint::BigInt; // Import the 'num_bigint' crate for handling large integers with 'BigInt'
+use num_traits::{One, Zero}; // Import 'num_traits' for numeric traits like 'One' and 'Zero' for BigInt operations
+use regex::Regex; // Import the 'regex' crate for regular expression parsing
+use std::fs::File; // Import the 'std::fs' and 'std::io' modules for file operations and input/output
 use std::io;
 use std::io::{BufRead, BufWriter, Write};
-use std::path::PathBuf;
+use std::path::PathBuf; // Import the 'std::path' module for working with file paths
 
 //output_file_path
 const OUTPUT_FILE_PATH: &str = "/Users/ralf/Projects/output_files/collatz_sequence.txt";
