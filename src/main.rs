@@ -85,7 +85,7 @@ fn def_output() -> (PathBuf, File) {
 /// - `n`: The starting value for the Collatz sequence.
 /// - `output_file`: A mutable reference to a `BufWriter<File>` to write the sequence to a file.
 /// 
-pub(crate) fn collatz(mut n: BigInt, output_file: &mut BufWriter<File>) {
+fn collatz(mut n: BigInt, output_file: &mut BufWriter<File>) {
     while n != BigInt::one() {
         match n.clone() % BigInt::from(2) {
             x if x == BigInt::zero() => n /= BigInt::from(2),
