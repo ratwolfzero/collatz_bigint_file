@@ -1,0 +1,1 @@
+window.ALL_CRATES = ["aho_corasick","bitflags","cfg_if","collatz_bigint_file","colored","crossbeam_deque","crossbeam_epoch","crossbeam_utils","either","errno","is_terminal","lazy_static","libc","memchr","memoffset","num_bigint","num_integer","num_traits","rayon","rayon_core","regex","regex_automata","regex_syntax","rustix","scopeguard"];

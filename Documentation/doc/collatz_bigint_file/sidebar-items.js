@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["OUTPUT_FILE_PATH"],"fn":["collatz","def_output","line_read","main","parse_bigint","parse_input","read_input"]};

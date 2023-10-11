@@ -70,7 +70,21 @@ fn def_output() -> (PathBuf, File) {
     (output_file_path, output_file)
 }
 
-//function to calculate the collatz sequence and write it to file
+/// Calculates the Collatz sequence for a given starting value.
+///
+/// The Collatz sequence is a series of numbers where each number is derived from the previous
+/// number using the following rules:
+///
+/// - If the number is even, divide it by 2.
+/// - If the number is odd, multiply it by 3 and add 1.
+///
+/// The sequence continues until the number reaches 1.
+///
+/// # Arguments
+///
+/// - `n`: The starting value for the Collatz sequence.
+/// - `output_file`: A mutable reference to a `BufWriter<File>` to write the sequence to a file.
+/// 
 fn collatz(mut n: BigInt, output_file: &mut BufWriter<File>) {
     while n != BigInt::one() {
         match n.clone() % BigInt::from(2) {
@@ -110,7 +124,7 @@ fn line_read(
 
                 *stopping_time = line_num + 1; //add 1 to account for input value
 
-                let formatted_num = num.clone().to_string().color(color); 
+                let formatted_num = num.clone().to_string().color(color);
                 print!("{} ", formatted_num);
             }
             Err(err) => {
