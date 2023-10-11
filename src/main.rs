@@ -11,6 +11,19 @@ use std::path::PathBuf; // Import the 'std::path' module for working with file p
 //output_file_path
 const OUTPUT_FILE_PATH: &str = "/Users/ralf/Projects/output_files/collatz_sequence.txt";
 
+// Helper function to parse BigInt
+fn parse_bigint(input: &str) -> Result<BigInt, String> {
+    if let Ok(value) = input.trim().parse::<BigInt>() {
+        if value > BigInt::zero() {
+            Ok(value)
+        } else {
+            Err("Input must be a positive integer".to_string())
+        }
+    } else {
+        Err("Failed to parse BigInt from input".to_string())
+    }
+}
+
 //function to read start value for collatz sequence
 fn read_input() -> String {
     println!(
@@ -43,9 +56,9 @@ fn parse_input(input_value: String) -> Option<BigInt> {
             // Calculate the parsed value as (base^exponent) - subtract
             Some(BigInt::from(base).pow(exponent) - BigInt::from(subtract))
         }
-        None => match input_value.trim().parse::<BigInt>() {
-            Ok(value) if value > BigInt::zero() => Some(value), // Return parsed BigInt if valid
-            _ => None,                                          // Return None for invalid input
+        None => match parse_bigint(&input_value) {
+            Ok(value) => Some(value),
+            Err(_) => None,
         },
     }
 }
@@ -80,31 +93,30 @@ fn line_read(
     println!();
     for (line_num, line) in reader.lines().enumerate() {
         let line = line.expect("Failed to read line");
-        let num = line
-            .trim()
-            .parse::<BigInt>()
-            .expect("Failed to parse BigInt from file");
+        match parse_bigint(&line) {
+            Ok(num) => {
+                let color = if num.clone() % &BigInt::from(2) == BigInt::zero() {
+                    *even += 1;
+                    Color::White
+                } else {
+                    *odd += 1;
+                    Color::Yellow
+                };
 
-        let color = match num.clone() % &BigInt::from(2) {
-            x if x == BigInt::zero() => {
-                *even += 1;
-                Color::White
-            }
-            _ => {
-                *odd += 1;
-                Color::Yellow
-            }
-        };
+                if num > max_value.clone() {
+                    *max_value = num.clone();
+                    *max_index = line_num + 1; //add 1 to account for input value
+                }
 
-        if num > *max_value {
-            *max_value = num.clone();
-            *max_index = line_num + 1; // Increment max_index to account for input_value
+                *stopping_time = line_num + 1; //add 1 to account for input value
+
+                let formatted_num = num.clone().to_string().color(color); 
+                print!("{} ", formatted_num);
+            }
+            Err(err) => {
+                eprintln!("Error parsing line {}: {}", line_num + 1, err);
+            }
         }
-
-        *stopping_time = line_num + 1; // Increment stopping_time to account for input_value
-
-        let formatted_num = num.to_string().color(color);
-        print!("{} ", formatted_num);
     }
 }
 fn main() {
