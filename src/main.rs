@@ -105,6 +105,7 @@ fn line_read(
     println!();
     for (line_num, line) in reader.lines().enumerate() {
         let line = line.expect("Failed to read line");
+
         match parse_bigint(&line) {
             Ok(num) => {
                 let color = match num.clone() % &BigInt::from(2) {
