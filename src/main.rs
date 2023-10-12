@@ -14,18 +14,15 @@ const OUTPUT_FILE_PATH: &str = "/Users/ralf/Projects/output_files/collatz_sequen
 // Helper function to parse BigInt
 fn parse_bigint(input: &str) -> Result<BigInt, String> {
     match input.trim().parse::<BigInt>() {
-        Ok(value) => match value > BigInt::zero() {
-            true => Ok(value),
-            false => Err("Input must be a positive integer".to_string()),
-        },
-        Err(_) => Err("Failed to parse BigInt from input".to_string()),
+        Ok(value) if value > BigInt::zero() => Ok(value),
+        _ => Err("Failed to parse BigInt from input. Input must be a positive integer".to_string()),
     }
 }
 
 //function to read start value for collatz sequence
 fn read_input() -> String {
     println!(
-        "Enter an integer as start value for the Collatz sequence (e.g., 27 or 2^199-1 or 2^199):"
+        "Enter a positiv integer as start value for the Collatz sequence (e.g., 27 or 2^199-1 or 2^199):"
     );
     println!();
 
@@ -192,3 +189,4 @@ fn main() {
         println!("Invalid input. Please enter a valid positive integer or a valid expression like '2^199' or '2^199-1'.")
     }
 }
+
