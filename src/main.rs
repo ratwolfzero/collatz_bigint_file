@@ -13,14 +13,12 @@ const OUTPUT_FILE_PATH: &str = "/Users/ralf/Projects/output_files/collatz_sequen
 
 // Helper function to parse BigInt
 fn parse_bigint(input: &str) -> Result<BigInt, String> {
-    if let Ok(value) = input.trim().parse::<BigInt>() {
-        if value > BigInt::zero() {
-            Ok(value)
-        } else {
-            Err("Input must be a positive integer".to_string())
-        }
-    } else {
-        Err("Failed to parse BigInt from input".to_string())
+    match input.trim().parse::<BigInt>() {
+        Ok(value) => match value > BigInt::zero() {
+            true => Ok(value),
+            false => Err("Input must be a positive integer".to_string()),
+        },
+        Err(_) => Err("Failed to parse BigInt from input".to_string()),
     }
 }
 
@@ -97,32 +95,35 @@ fn collatz(mut n: BigInt, output_file: &mut BufWriter<File>) {
 
 // Function to read the file line by line, calculate statistics, format and print sequence
 fn line_read(
-    reader: io::BufReader<File>, // Input: Buffered file reader
-    even: &mut i32,              // Output: Count of even numbers
-    odd: &mut i32,               // Output: Count of odd numbers
-    max_value: &mut BigInt,      // Output: Maximum value encountered
-    max_index: &mut usize,       // Output: Line number where maximum value was encountered
-    stopping_time: &mut usize,   // Output: Total lines processed (stopping time)
+    reader: io::BufReader<File>,
+    even: &mut i32,
+    odd: &mut i32,
+    max_value: &mut BigInt,
+    max_index: &mut usize,
+    stopping_time: &mut usize,
 ) {
     println!();
     for (line_num, line) in reader.lines().enumerate() {
         let line = line.expect("Failed to read line");
         match parse_bigint(&line) {
             Ok(num) => {
-                let color = if num.clone() % &BigInt::from(2) == BigInt::zero() {
-                    *even += 1;
-                    Color::White
-                } else {
-                    *odd += 1;
-                    Color::Yellow
+                let color = match num.clone() % &BigInt::from(2) {
+                    x if x == BigInt::zero() => {
+                        *even += 1;
+                        Color::White
+                    }
+                    _ => {
+                        *odd += 1;
+                        Color::Yellow
+                    }
                 };
 
                 if num > max_value.clone() {
                     *max_value = num.clone();
-                    *max_index = line_num + 1; //add 1 to account for input value
+                    *max_index = line_num + 1;
                 }
 
-                *stopping_time = line_num + 1; //add 1 to account for input value
+                *stopping_time = line_num + 1;
 
                 let formatted_num = num.clone().to_string().color(color);
                 print!("{} ", formatted_num);
@@ -133,6 +134,7 @@ fn line_read(
         }
     }
 }
+
 fn main() {
     //inizialize variables
     let mut max_value = BigInt::zero();
@@ -171,7 +173,6 @@ fn main() {
             &mut max_index,
             &mut stopping_time,
         );
-
         println!();
         println!();
         //print input value and parsed input value
@@ -184,8 +185,8 @@ fn main() {
         println!("odd (yellow): {}", odd);
         println!("max pos: {}", max_index);
         println!("max value: {}", max_value);
-        println!()
+        println!();
     } else {
-        println!("Invalid input. Please enter a valid positive integer or a valid expression like '2^199-1'.");
+        println!("Invalid input. Please enter a valid positive integer or a valid expression like '2^199-1'.")
     }
 }
