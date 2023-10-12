@@ -187,6 +187,6 @@ fn main() {
         println!("max value: {}", max_value);
         println!();
     } else {
-        println!("Invalid input. Please enter a valid positive integer or a valid expression like '2^199-1'.")
+        println!("Invalid input. Please enter a valid positive integer or a valid expression like '2^199' or '2^199-1'.")
     }
 }
