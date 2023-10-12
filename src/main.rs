@@ -149,6 +149,7 @@ fn main() {
 
     //call function to parse the input value
     if let Some(parsed_input) = parse_input(input_value.clone()) {
+        
         // call function to define the path for the output file
         let (output_file_path, output_file) = def_output();
 
